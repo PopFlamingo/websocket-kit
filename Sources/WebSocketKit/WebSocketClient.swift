@@ -63,7 +63,7 @@ public final class WebSocketClient {
         let upgradePromise = self.group.next().makePromise(of: Void.self)
         let bootstrap = WebSocketClient.makeBootstrap(on: self.group)
             .channelOption(ChannelOptions.socket(SocketOptionLevel(IPPROTO_TCP), TCP_NODELAY), value: 1)
-            .channelOption(ChannelOptions.Types.ConnectTimeoutOption(), value: .seconds(60))
+            .connectTimeout(.seconds(60))
             .channelInitializer { channel in
                 let httpHandler = HTTPInitialRequestHandler(
                     host: host,
